@@ -578,7 +578,14 @@ class _FlushbarState<K extends Object> extends State<Flushbar> with TickerProvid
           left: false,
           right: false,
           child: GestureDetector(
-            onTap: widget.onPressed,
+            onTap: () {
+              if (widget.onPressed != null) {
+                widget.onPressed();
+              }
+              if (widget.isShowing()) {
+                widget.dismiss();
+              }
+            },
             child: _getFlushbar()),
         ),
       ),
