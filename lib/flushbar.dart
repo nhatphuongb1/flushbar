@@ -348,7 +348,8 @@ class Flushbar<T extends Object> extends StatefulWidget {
       this.flushbarPosition = FlushbarPosition.BOTTOM,
       this.forwardAnimationCurve = Curves.easeOut,
       this.reverseAnimationCurve = Curves.fastOutSlowIn,
-      this.animationDuration = const Duration(seconds: 1)})
+      this.animationDuration = const Duration(seconds: 1),
+      this.onPressed})
       : super(key: key);
 
   /// [onStatusChanged] A callback used to listen to Flushbar status [FlushbarStatus]. Set it using [setStatusListener()]
@@ -372,6 +373,7 @@ class Flushbar<T extends Object> extends StatefulWidget {
   double aroundPadding;
   double borderRadius;
   Form userInputForm;
+  VoidCallback onPressed;
 
   final FlushbarPosition flushbarPosition;
   final Curve forwardAnimationCurve;
@@ -575,7 +577,9 @@ class _FlushbarState<K extends Object> extends State<Flushbar> with TickerProvid
           top: widget.flushbarPosition == FlushbarPosition.TOP,
           left: false,
           right: false,
-          child: _getFlushbar(),
+          child: GestureDetector(
+            onTap: widget.onPressed,
+            child: _getFlushbar()),
         ),
       ),
     );
