@@ -444,6 +444,8 @@ class _FlushbarState<K extends Object> extends State<Flushbar> with TickerProvid
 
   final Duration _pulseAnimationDuration = Duration(seconds: 1);
 
+  bool isDismissing = false;
+
   List<BoxShadow> _getBoxShadowList() {
     if (_boxShadow != null) {
       return [_boxShadow];
@@ -579,10 +581,9 @@ class _FlushbarState<K extends Object> extends State<Flushbar> with TickerProvid
           right: false,
           child: GestureDetector(
             onTap: () {
-              if (widget.onPressed != null) {
+              if (widget.onPressed != null && !isDismissing) {
+                isDismissing = true;
                 widget.onPressed();
-              }
-              if (widget.isShowing()) {
                 widget.dismiss();
               }
             },
